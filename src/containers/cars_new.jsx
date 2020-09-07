@@ -4,7 +4,6 @@ import { reduxForm, Field } from 'redux-form';
 import { createCar } from '../actions';
 
 class CarsNew extends Component {
-
   onSubmit = (values) => {
     this.props.createCar(values, (car) => {
       this.props.history.push('/'); // Navigate after submit
@@ -43,8 +42,10 @@ const validate = values => {
   if (!values.brand) { errors.brand = 'Required'; }
   if (!values.model) { errors.model = 'Required'; }
   if (!values.owner) { errors.owner = 'Required'; }
-  if (!values.plate) { errors.plate = 'Required'; }
-  else if (!/^[A-Z\d-]+$/.test(values.plate)) { errors.plate = 'Only numbers and capital letters'; }
+  if (!values.plate) { errors.plate = 'Required';
+  } else if (!/^[A-Z\d-]+$/.test(values.plate)) {
+    errors.plate = 'Only numbers and capital letters';
+  }
 
   return errors;
 };

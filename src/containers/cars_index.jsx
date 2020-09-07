@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import { fetchCars } from '../actions/index';
 
 class CarsIndex extends Component {
@@ -13,8 +14,10 @@ class CarsIndex extends Component {
     return this.props.cars.map((car) => {
       return (
         <div className="car-item" key={car.id}>
-          <h3>{car.brand}-{car.model}</h3>
-          <p>owner: {car.owner}</p>
+          <Link to={`/cars/show/${car.id}`}>
+            <h3>{car.brand}-{car.model}</h3>
+            <p>owner: {car.owner}</p>
+          </Link>
         </div>);
     });
   }
@@ -23,6 +26,7 @@ class CarsIndex extends Component {
     return (
       <div className="car-list">
         { this.renderCars() }
+        <Link to="/cars/new"> Add a car</Link>
       </div>
     );
   }

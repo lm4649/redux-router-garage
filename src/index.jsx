@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 import { reducer as formReducer } from 'redux-form';
 
@@ -36,9 +36,10 @@ ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
     <Router history={history}>
       <Switch>
-        <Route path="/" exact component={CarsIndex} />
+        <Route path="/cars" exact component={CarsIndex} />
         <Route path="/cars/new" exact component={CarsNew} />
         <Route path="/cars/show/:id" component={CarsShow} />
+        <Redirect from="/" to="/cars" />
       </Switch>
     </Router>
   </Provider>,
