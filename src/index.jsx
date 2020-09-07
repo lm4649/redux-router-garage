@@ -6,13 +6,16 @@ import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
+import { reducer as formReducer } from 'redux-form';
 
 import '../assets/stylesheets/application.scss';
 import carsReducer from './reducers/cars_reducer';
 import CarsIndex from './containers/cars_index';
+import CarsNew from './containers/cars_new';
 
 const reducers = combineReducers({
   cars: carsReducer
+  form: formReducer
 });
 
 const initialState = {
