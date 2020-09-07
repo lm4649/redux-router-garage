@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { createPost } from '../actions';
-
+import { createCar } from '../actions';
 
 class CarsNew extends Component {
 
-  handleSubmit = (values) => {
-    this.props.createPost(values, (car) => {
+  onSubmit = (values) => {
+    this.props.createCar(values, (car) => {
       this.props.history.push('/'); // Navigate after submit
       return car;
     });
@@ -24,21 +23,30 @@ class CarsNew extends Component {
   )
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
         <Field name="brand" type="text" component={this.renderField} label="Brand"/>
         <Field name="model" type="text" component={this.renderField} label="Model"/>
         <Field name="owner" type="text" component={this.renderField} label="Owner"/>
         <Field name="plate" type="text" component={this.renderField} label="Plate"/>
         <div>
-          <button type="submit" disabled={submitting}>Submit</button>
+          <button type="submit" disabled={pristine || submitting}>Add car</button>
         </div>
       </form>
     );
   }
 }
 
-export default reduxForm({ form: 'newCarForm' })(
-connect(null, { createPost })(CarsNew)
-);
+const validate = values => {
+  const errors = {};
+  if (!values.brand) { errors.brand = 'Required'; }
+  if (!values.model) { errors.model = 'Required'; }
+  if (!values.owner) { errors.owner = 'Required'; }
+  if (!values.plate) { errors.plate = 'Required'; }
+  else if (!/^[A-Z\d-]+$/.test(values.plate)) { errors.plate = 'Only numbers and capital letters'; }
+
+  return errors;
+};
+
+export default reduxForm({ form: 'newCarForm', validate })(connect(null, { createCar })(CarsNew));
