@@ -14,7 +14,7 @@ import CarsIndex from './containers/cars_index';
 import CarsNew from './containers/cars_new';
 
 const reducers = combineReducers({
-  cars: carsReducer
+  cars: carsReducer,
   form: formReducer
 });
 
@@ -24,7 +24,8 @@ const initialState = {
     { id: 2, brand: 'Renault', model: 'Scenic', owner: 'Paul', plate: 'AAA-12-BC' },
     { id: 3, brand: 'Aston Martin', model: 'DB Mark III', owner: 'James', plate: '418-ED-94' },
     { id: 4, brand: 'VW', model: 'Beetle', owner: 'George', plate: '1234-XD-75' }
-  ]
+  ],
+  form: null
 };
 
 const middlewares = applyMiddleware(reduxPromise, logger);

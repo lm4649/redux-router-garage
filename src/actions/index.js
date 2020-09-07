@@ -12,12 +12,12 @@ export function fetchCars() {
   };
 }
 
-export function createCar(body) {
+export function createCar(body, callback) {
   const promise = fetchCars(`${URL}${API_KEY}/cars`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
     body: JSON.stringify(body)
-  }).then(r => r.json());
+  }).then(r => r.json()).then(callback);
 
   return {
     type: POST_CAR,
